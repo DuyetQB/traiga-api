@@ -1,17 +1,22 @@
 
 const express = require("express");
 const app = express();
-const port = process.env.BASE_URL || 3000;
+const cors = require("cors");
 const mongoose = require('mongoose');
 var MongoClient = require('mongodb').MongoClient;
 const Model = require("./model/index");
 const product = require("./api/products/index.js");
+require('dotenv').config();
 
 
 // mongoose.connect('mongodb://localhost/trai-ga',{
 //         useNewUrlParser: true,
 //         useUnifiedTopology: true
 // });
+
+app.use(express.json({extended:false}));
+app.use(cors());
+
 var servermg = "mongodb+srv://dinhsyduyet:dinhsyduyet@cluster0.hy4q0.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 // mongodb+srv://dinhsyduyet:<password>@cluster0.hy4q0.mongodb.net/?retryWrites=true&w=majority
 
@@ -22,7 +27,6 @@ mongoose.connect(servermg, { useNewUrlParser: true,useUnifiedTopology: true })
         console.error("err:",err);
      });
 
-app.use(express.json({extended:false}));
 
 
 app.get("/",function(req,res) {
@@ -33,6 +37,6 @@ res.send("wellcome to my website");
 
 app.use("/api/product",product);
 
-app.listen(port,function(){
-    console.log(`app is runing on port ${port}`);
+app.listen(3000,function(){
+    console.log(`app is runing `);
 })

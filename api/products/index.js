@@ -9,13 +9,13 @@ console.log("req:",req);
 try {
     
     const datasResponse =  new Model({
-        title:  "duyet yeu em nhieu haha hihi",
+        title:  "duyet yeu em nhieu haha oo",
         body: "body"
     });
 
-   await datasResponse.save();
+    await datasResponse.save();
 
-   Model.find({},function(err, data){
+    await Model.find({},function(err, data){
 
        res.status(200).json(data);
    });
