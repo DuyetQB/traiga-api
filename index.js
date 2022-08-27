@@ -12,10 +12,12 @@ const product = require("./api/products/index.js");
 //         useNewUrlParser: true,
 //         useUnifiedTopology: true
 // });
+var servermg = "mongodb+srv://dinhsyduyet:dinhsyduyet@cluster0.hy4q0.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+// mongodb+srv://dinhsyduyet:<password>@cluster0.hy4q0.mongodb.net/?retryWrites=true&w=majority
 
 var dburl   =  "mongodb://0.0.0.0:27017/demo";
-mongoose.connect(dburl, { useUnifiedTopology: true })
-    .then(() => { console.log('Connected to MongoDB: %s \n ', dburl) }) 
+mongoose.connect(servermg, { useNewUrlParser: true,useUnifiedTopology: true })
+    .then(() => { console.log('Connected to MongoDB: %s \n ', servermg) }) 
     .catch((err) => { 
         console.error("err:",err);
      });
