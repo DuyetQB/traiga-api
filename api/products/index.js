@@ -1,7 +1,9 @@
 
 const Model = require("../../model/index");
+const express = require("express");
+const router = express.Router();
 
-const products = async ( req, res) =>{
+router.get("/", async (req, res) => {
 console.log("req:",req);
 
 try {
@@ -21,7 +23,7 @@ try {
 } catch (error) {
     console.log("err:",error);
 }
-}
+});
 
 
-module.exports = products
+module.exports = router;
