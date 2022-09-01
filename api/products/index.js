@@ -3,7 +3,7 @@ const Model = require("../../model/index");
 const express = require("express");
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+router.get("/", (req, res) => {
 console.log("req:",req);
 res.send("wellcome to my website");
 
@@ -12,17 +12,24 @@ res.send("wellcome to my website");
 
     try {
     
-        const datasResponse =  new Model({
-            title:  "duyet yeu em nhieu hahabb nn",
-            body: "body"
-        });
+    //     const datasResponse =  new Model({
+    //         title:  "duyet yeu em nhieu hahabb nn",
+    //         body: "body"
+    //     });
     
-        await datasResponse.save();
+    //     await datasResponse.save();
     
-        await Model.find({},function(err, data){
+    //     await Model.find({},function(err, data){
     
-           return res.status(200).json(data);
-       }).clone()
+    //        return res.status(200).json(data);
+    //    }).clone()
+
+    const data = [{
+        title:"dinh si duyet yeu em",
+        body:"yeu cai do",
+        slug:"hehe"
+    }]
+    return res.status(200).json(data);
     
     } catch (error) {
         console.log("err:",error);
