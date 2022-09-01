@@ -29,13 +29,13 @@ mongoose.connect(servermg, { useNewUrlParser: true,useUnifiedTopology: true })
 
 
 
-app.get("/",function(req,res) {
+// app.get("/",function(req,res) {
     
-res.send("wellcome to my website");
-}
-)
+// res.send("wellcome to my website");
+// }
+// )
 
-app.use("/api/product",product);
+app.use("/",product);
 
 app.listen(process.env.PORT || 3000,function(){
     console.log(`app is runing `);
