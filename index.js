@@ -6,7 +6,8 @@ const mongoose = require('mongoose');
 var MongoClient = require('mongodb').MongoClient;
 const Model = require("./model/index");
 const product = require("./api/products/index.js");
-require('dotenv').config();
+// require('dotenv').config();
+const PORT = process.env.BASE_URL || 5000;
 
 
 // mongoose.connect('mongodb://localhost/trai-ga',{
@@ -37,6 +38,6 @@ mongoose.connect(servermg, { useNewUrlParser: true,useUnifiedTopology: true })
 
 app.use("/",product);
 
-app.listen(process.env.PORT || 3000,function(){
+app.listen(PORT,function(){
     console.log(`app is runing `);
 })
