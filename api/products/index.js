@@ -9,7 +9,7 @@ console.log("req:",req);
 try {
     
     const datasResponse =  new Model({
-        title:  "duyet yeu em nhieu haha oo",
+        title:  "duyet yeu em nhieu hahabb",
         body: "body"
     });
 
@@ -17,8 +17,8 @@ try {
 
     await Model.find({},function(err, data){
 
-       res.status(200).json(data);
-   });
+       return res.status(200).json(data);
+   }).clone()
 
 } catch (error) {
     console.log("err:",error);

@@ -37,6 +37,6 @@ res.send("wellcome to my website");
 
 app.use("/api/product",product);
 
-app.listen(3000,function(){
+app.listen(process.env.PORT || 3000,function(){
     console.log(`app is runing `);
 })
