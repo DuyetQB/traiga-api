@@ -7,7 +7,7 @@ var MongoClient = require('mongodb').MongoClient;
 const Model = require("./model/index");
 const product = require("./api/products/index.js");
 // require('dotenv').config();
-const PORT = process.env.BASE_URL || 5000;
+const PORT = process.env.BASE_URL || 3000;
 
 
 // mongoose.connect('mongodb://localhost/trai-ga',{
