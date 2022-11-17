@@ -8,31 +8,36 @@ console.log("req:",req);
 res.send("wellcome to my website");
 
 })
-.get("/api/product", async (req, res) => {
+router.get("/api/productAll", async (req, res) => {
 
     try {
     
-    //     const datasResponse =  new Model({
-    //         title:  "duyet yeu em nhieu hahabb nn",
-    //         body: "body"
-    //     });
-    
-    //     await datasResponse.save();
-    
-    //     await Model.find({},function(err, data){
-    
-    //        return res.status(200).json(data);
-    //    }).clone()
+      const datasResponse =   await Model.find({})
 
-    const data = [{
-        title:"dinh si duyet yeu em",
-        body:"yeu cai do",
-        slug:"hehe"
-    }]
-    return res.status(200).json(data);
+ return res.status(200).json({data:datasResponse,statusMessage:"ok"});
     
     } catch (error) {
         console.log("err:",error);
+    }
+})
+
+router.post("/api/createProduct", async (req, res) =>{
+
+    try {
+
+        const { title , body } = req.body;
+
+        console.log(" title , body:", title , body)
+        const datasCreate = new Model({
+            title: title,
+            body: body
+        });
+    
+         datasCreate.save();
+         return res.status(201).json({data:datasCreate,statusMessage:"create success"});
+
+    } catch (error) {
+        
     }
 })
 
