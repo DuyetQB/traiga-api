@@ -3,10 +3,9 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const mongoose = require('mongoose');
-const Model = require("./model/index");
 const router = require("./router/index.js");
 require('dotenv').config()
-const PORT = process.env.BASE_URL || 3002
+const PORT = 3002
 const morgan = require('morgan');
 
 
