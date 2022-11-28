@@ -1,19 +1,19 @@
 
-const bcrypt = require('bcrypt');
+// const bcrypt = require('bcrypt');
 const ModelUser = require("../model/user");
 
 
-const generateTokens = (payload) => {
-    const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
-        expiresIn: "60s",
-    });
+// const generateTokens = (payload) => {
+//     const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
+//         expiresIn: "60s",
+//     });
 
-    const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {
-        expiresIn: "1h",
-    });
+//     const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {
+//         expiresIn: "1h",
+//     });
 
-    return { accessToken, refreshToken };
-};
+//     return { accessToken, refreshToken };
+// };
 
 const Login = async (req, res) => {
   try {
@@ -48,22 +48,22 @@ const Signup = async (req, res) => {
     try {
     //   const datasResponse = await ModelUser.find({});
 
-   const { username , email, password } = req.body;
+  //  const { username , email, password } = req.body;
 
-   const passwordHash = (pass) =>{
-    return bcrypt.hashSync(pass, bcrypt.genSaltSync(10), null);
-   }
+  //  const passwordHash = (pass) =>{
+  //   return bcrypt.hashSync(pass, bcrypt.genSaltSync(10), null);
+  //  }
 
-   const createNewUser = new ModelUser({
-    username:username,
-    email:email,
-    password:passwordHash(password),
-...ModelUser
+//    const createNewUser = new ModelUser({
+//     username:username,
+//     email:email,
+//     password:passwordHash(password),
+// ...ModelUser
 
-   });
+//    });
 
 
-      return res.status(200).json({ data: createNewUser, statusMessage: "create a new user" });
+      // return res.status(200).json({ data: createNewUser, statusMessage: "create a new user" });
     } catch (error) {
       console.log("err:", error);
     }
