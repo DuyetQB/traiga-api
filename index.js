@@ -14,7 +14,7 @@ const morgan = require('morgan');
 //         useUnifiedTopology: true
 // });
 let corsOptions = {
-    origin: 'https://lenodev.com/',
+    origin: 'https://lenodev.com',
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
   }
   
