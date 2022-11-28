@@ -13,7 +13,11 @@ const morgan = require('morgan');
 //         useNewUrlParser: true,
 //         useUnifiedTopology: true
 // });
-
+let corsOptions = {
+    origin: 'http://localhost:3000',
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+  }
+  
 app.use(express.json({extended:false}));
 app.use(cors());
 app.use(morgan("dev"));
@@ -31,7 +35,7 @@ mongoose.connect(dbUrl, { useNewUrlParser: true,useUnifiedTopology: true })
 
 
 
-app.use("/",router);
+app.use("/",cors(corsOptions),router);
 
 app.listen(PORT,function(){
     console.log(`app is runing on port-${PORT} `);

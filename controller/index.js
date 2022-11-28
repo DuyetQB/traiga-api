@@ -1,13 +1,13 @@
 const ModelBlog = require("../model/blog");
 
 const getAllProduct = async (req, res) => {
-  const perPage = 10;
-  const page = Math.max(0, req.query.page);
-
+  
   try {
+    const perPage = 10;
+    const page = Math.max(0, req.query.page);
     const datasResponse = await ModelBlog.find({}).limit(perPage).skip(perPage * page);
 
-    return res.status(200).json({ data: datasResponse, statusMessage: "ok" });
+  return res.status(200).json({ data: datasResponse, statusMessage: "ok" });
   } catch (error) {
     console.log("err:", error);
   }
