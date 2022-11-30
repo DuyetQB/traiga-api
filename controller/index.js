@@ -1,4 +1,5 @@
 const ModelBlog = require("../model/blog");
+ const  { handleSlugString } = require("../utils/utils");
 
 const getAllProduct = async (req, res) => {
   
@@ -16,7 +17,7 @@ const getAllProduct = async (req, res) => {
 const getProductById = async (req, res) => {
   try {
 
-    const datasResponse = await ModelBlog.findOne({_id:req.params.id});
+    const datasResponse = await ModelBlog.findOne({slug:req.params.slug});
 
     return res.status(200).json({ data: datasResponse, statusMessage: "ok" });
   } catch (error) {
@@ -28,13 +29,15 @@ const getProductById = async (req, res) => {
 const createProduct = async (req, res) => {
   try {
     const { title, body , author , description , imageUrl , imageThumbnailUrl } = req.body;
-
+    const handleSlug = handleSlugString(title);
+    
     const datasCreate = new ModelBlog({
       author:author,
       title: title,
       description:description,
       body: body,
       imageUrl:imageUrl,
+      slug:handleSlug,
       imageThumbnailUrl:imageThumbnailUrl
     });
 
