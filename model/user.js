@@ -3,11 +3,8 @@ const Schema = mongoose.Schema;
 const ObjectId = Schema.ObjectId;
 
 const UserSchema = new Schema({
-  id: ObjectId,
-  isAdmin:Boolean,
-  userId:Number,
   avatarUrl: { type: String, default:null},
-  isAdmin: { type: Boolean, default: false},
+  role: { type: String, default: "User"},
   userId: { type: Number, default: null},
   action: { type: String, default: 'System'},
   email: {
@@ -24,9 +21,8 @@ const UserSchema = new Schema({
     type: String,
     required: true
   },
-},{ timestamps: true })
-;
+},{ timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }})
 
-const User = mongoose.model("user", UserSchema);
+const Users = mongoose.model("users", UserSchema);
 
-module.exports = User;
+module.exports = Users;

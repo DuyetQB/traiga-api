@@ -35,7 +35,7 @@ mongoose.connect(dbUrl, { useNewUrlParser: true,useUnifiedTopology: true })
 
 
 
-app.use("/",cors(corsOptions),router);
+app.use("/",router);
 
 app.listen(PORT,function(){
     console.log(`app is runing on port-${PORT} `);

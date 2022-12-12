@@ -50,25 +50,22 @@ const createProduct = async (req, res) => {
 
 const updateProduct = async (req, res) => {
   try {
-    const { author, title, description, imageUrl, imageThumbnailUrl, body } =
-      req.body;
+    // const { author, title, description, imageUrl, imageThumbnailUrl, body } =
+    //   req.body;
+    const data = req.body;
+    console.log("dataupdate",data);
 
-    console.log("req.params:", req.params.id);
-   
-    const dataDb = await ModelBlog.findById(req.params.id);
-    const datasUpdate = await ModelBlog.update({
-      author: author,
-      title: title,
-      description: description,
-      body: body,
-      imageUrl: imageUrl,
-      imageThumbnailUrl: imageThumbnailUrl,
-    });
+    
+    const dataUpdate = await ModelBlog.findOneAndUpdate(data,data);
+    // const datasUpdate = await ModelBlog.update({
+      
+      // });
+      console.log("req.dataUpdatedataUpdate:", dataUpdate);
 
-    datasUpdate.save();
+    dataUpdate.save();
     return res
       .status(201)
-      .json({ data: datasCreate, statusMessage: "create success" });
+      .json({ data: dataUpdate, statusMessage: "Update success" });
   } catch (error) {}
 };
 
