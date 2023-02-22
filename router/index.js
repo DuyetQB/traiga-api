@@ -1,6 +1,8 @@
-const { getAllProduct , createProduct , updateProduct , deleteProduct , getProductById ,deleteProductAll } = require("../controller/index");
+const { getAllProduct , createProduct , updateProduct ,
+     deleteProductById , getProductById ,deleteProductAll ,
+      findProductByName } = require("../controller/index");
 
-const { Login, Signup , Profile }= require("../controller/user");
+const { Login, Signup , Profile , userRefreshToken }= require("../controller/user");
 const { Middleware } = require("../middleware/index");
 const express = require("express");
 const router = express.Router();
@@ -11,8 +13,11 @@ router.post("/api/createProduct", createProduct)
 router.delete("/api/deleteProductAll", deleteProductAll)
 router.post("/api/login", Login)
 router.post("/api/signup", Signup)
-router.patch("/api/updateProduct/:slug", updateProduct)
-router.post("/api/deleteProduct/:id", deleteProduct)
+router.put("/api/updateProduct/", updateProduct)
+router.delete("/api/deleteProduct/:id", deleteProductById)
 router.get("/api/profile", Middleware, Profile)
+router.post("/api/refresh-token", userRefreshToken)
+router.get("/api/search", findProductByName)
+
 
 module.exports = router;

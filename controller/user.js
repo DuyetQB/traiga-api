@@ -1,37 +1,45 @@
 const bcrypt = require("bcryptjs");
 const ModelUser = require("../model/user");
-const { generateTokens } = require("../utils/token")
+const {
+  generateAccessToken,
+  generateRefreshToken,
+  refreshTokenService,
+} = require("../utils/token");
+const jwt = require("jsonwebtoken");
 
 const Login = async (req, res) => {
   try {
-    const data = req.body;
-    const tokens = generateTokens(data);
-    console.log("tokens:",tokens);
+    const user = await ModelUser.findOne({ email: req.body.email});
 
-    const user = await ModelUser.find({email:data.email})
-   console.log("emailResponse:",user.email);
-   console.log("data:",data);
+    if (!user) {
+      return res.status(500).json({
+        statusCode: "error",
+        statusMessage: "your username/email incorrect",
+      });
+    }
+    const { password, ...other } = user._doc;
 
-    if(!user){
-        return res.status(404).json({
-            statusCode:"error",
-            statusMessage:"your username/email incorrect"
-        });
+    if (!(await bcrypt.compare(req.body.password, user.password))) {
+      return res.status(500).json({
+        statusCode: "error",
+        statusMessage: "your password incorrect",
+      });
     }
 
-    // if(await bcrypt.compare(data.password, user.password,(err,result)=>{
-    //   if(err) throw err;
-    //   return res.status(200).json({
-    //     data:user,
-    //     statusMessage:"ok"
-    //   });
-    // })){
-    //   console.log("ok");
-    // };
-// const { password , ...other} = user;
+    const accessToken = generateAccessToken({
+      email: req.body.email,
+      id: other._id,
+    });
+    const refreshToken = generateRefreshToken({
+      email: req.body.email,
+      id: other._id,
+    });
+
     return res.status(200).json({
-      data:user,
-      statusMessage:"ok"
+      data: other,
+      statusMessage: "ok",
+      accessToken: accessToken,
+      refreshToken: refreshToken,
     });
   } catch (error) {
     console.log("err:", error);
@@ -40,7 +48,6 @@ const Login = async (req, res) => {
 
 const Signup = async (req, res) => {
   try {
-
     const { username, email, password } = req.body;
     console.log("req body:", req.body);
 
@@ -84,8 +91,35 @@ const Profile = async (req, res) => {
   }
 };
 
+const userRefreshToken = async (req, res) => {
+  try {
+    const { token } = req.headers;
+    console.log("token:", token);
+    if (token) {
+      const response = jwt.verify(token, process.env.REFRESH_TOKEN_SECRET);
+      console.log("responseresponse:", response);
+      if (response) {
+        const newAccessToken = generateAccessToken({
+          username: req.body.username,
+          email: req.body.email,
+          id: response.id,
+        });
+        return res.status(200).json({
+          accessToken: newAccessToken,
+        });
+      }
+      res.status(200).json({
+        token: response,
+      });
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 module.exports = {
   Login,
   Signup,
   Profile,
+  userRefreshToken,
 };

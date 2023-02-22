@@ -1,19 +1,50 @@
 const jwt = require("jsonwebtoken");
 
 
-const generateTokens = (payload) => {
+const generateAccessToken = (payload) => {
     const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
-        expiresIn: "30s",
+        expiresIn: "1220m",
     });
 
-    // const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {
-    //     expiresIn: "1h",
-    // });
+     return  accessToken;
+};
+const generateRefreshToken = (payload) => {
 
-    // return { accessToken, refreshToken };
-     return { accessToken };
+    const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {
+        expiresIn: "360d",
+    });
+
+     return refreshToken;
+};
+
+const refreshTokenService = (payload) => {
+
+    const service = new Promise((resolve,reject) =>{
+        try {
+
+            const refreshToken = jwt.verify(payload, process.env.REFRESH_TOKEN_SECRET,(error,user)=>{
+        if(error){
+            return reject(404).json({
+            status:"error",
+            statusMessage:"the refresh token is invalid"
+            })
+        }
+
+        if(user) {
+            console.log("user:",user);
+        }
+        resolve(refreshToken);
+    });
+        } catch (error) {
+            reject(error)
+        }
+    })
+    
+     return service;
 };
 
 module.exports = {
-    generateTokens
+    generateAccessToken,
+    generateRefreshToken,
+    refreshTokenService
 }

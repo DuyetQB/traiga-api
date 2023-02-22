@@ -28,7 +28,7 @@ const getProductById = async (req, res) => {
 
 const createProduct = async (req, res) => {
   try {
-    const { title, body , author , description , imageUrl , imageThumbnailUrl } = req.body;
+    const { title, body , author , description , imageUrl , imageThumbnailUrl,keyWords } = req.body;
     const handleSlug = handleSlugString(title);
     
     const datasCreate = new ModelBlog({
@@ -38,7 +38,7 @@ const createProduct = async (req, res) => {
       body: body,
       imageUrl:imageUrl,
       slug:handleSlug,
-      imageThumbnailUrl:imageThumbnailUrl
+      keyWords:keyWords
     });
 
     datasCreate.save();
@@ -50,17 +50,19 @@ const createProduct = async (req, res) => {
 
 const updateProduct = async (req, res) => {
   try {
-    // const { author, title, description, imageUrl, imageThumbnailUrl, body } =
-    //   req.body;
-    const data = req.body;
-    console.log("dataupdate",data);
-
+    const { _id, ...other} = req.body;
+    let object = {
+      ...other
+    }
     
-    const dataUpdate = await ModelBlog.findOneAndUpdate(data,data);
-    // const datasUpdate = await ModelBlog.update({
-      
-      // });
-      console.log("req.dataUpdatedataUpdate:", dataUpdate);
+    if(other.title !== undefined) {
+      object = {
+        slug:handleSlugString(other.title),
+        ...other
+      }
+    }
+    
+    const dataUpdate = await ModelBlog.findByIdAndUpdate(_id,object);
 
     dataUpdate.save();
     return res
@@ -69,21 +71,21 @@ const updateProduct = async (req, res) => {
   } catch (error) {}
 };
 
-const deleteProduct = async (req, res) => {
+const deleteProductById = async (req, res) => {
   try {
-    const { title, body } = req.body;
 
-    console.log(" title , body:", title, body);
-    const datasCreate = new ModelBlog({
-      title: title,
-      body: body,
-    });
+    const datasDeleteById = await ModelBlog.findByIdAndDelete(req.params.id)
+    if (!datasDeleteById) return res
+    .status(404)
+    .json({statusMessage: "not found" });
 
-    datasCreate.save();
     return res
       .status(201)
-      .json({ data: datasCreate, statusMessage: "create success" });
-  } catch (error) {}
+      .json({statusMessage: "delete success" });
+   
+  } catch (error) {
+
+  }
 };
 
 const deleteProductAll = async (req, res) => {
@@ -91,7 +93,17 @@ const deleteProductAll = async (req, res) => {
     const datasDelete = ModelBlog.collection.deleteMany()
    return res
       .status(201)
-      .json({ data: datasDelete, statusMessage: "delete all datas success" });
+      .json({ statusMessage: "delete all datas success" });
+  } catch (error) {}
+};
+
+const findProductByName = async (req, res) => {
+  try {
+    // const datasDelete = ModelBlog.
+    console.log("req:",req.body.query);
+  //  return res
+  //     .status(201)
+  //     .json({ data: datasDelete, statusMessage: "delete all datas success" });
   } catch (error) {}
 };
 
@@ -100,6 +112,7 @@ module.exports = {
   getProductById,
   createProduct,
   updateProduct,
-  deleteProduct,
-  deleteProductAll
+  deleteProductById,
+  deleteProductAll,
+  findProductByName,
 };
