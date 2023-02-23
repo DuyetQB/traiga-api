@@ -1,4 +1,4 @@
-ervices:
+services:
   # Redis 1 - all fields defined
   - type: redis
     name: thunder
