@@ -1,0 +1,22 @@
+ervices:
+  # Redis 1 - all fields defined
+  - type: redis
+    name: thunder
+    ipAllowList: # required - allow external connections from only these CIDR blocks
+      - source: 203.0.113.4/30
+        description: office
+      - source: 198.51.100.1
+        description: home
+    region: frankfurt # optional (defaults to oregon)
+    plan: pro # optional (defaults to starter)
+    maxmemoryPolicy: allkeys-lru # optional (defaults to allkeys-lru)
+  # Redis 2 - all external connections allowed
+  - type: redis
+    name: lightning
+    ipAllowList: # required - allow external connections from everywhere
+      - source: 0.0.0.0/0
+        description: everywhere
+  # Redis 3 - no external connections allowed
+  - type: redis
+    name: private redis
+    ipAllowList: [] # only allow internal connections
