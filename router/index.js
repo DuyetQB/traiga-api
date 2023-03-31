@@ -1,7 +1,7 @@
 const { getAllProduct , createProduct , updateProduct ,
      deleteProductById , getProductById ,deleteProductAll ,
-      findProductByName } = require("../controller/index");
-
+      findProductByName} = require("../controller/index");
+      
 const { Login, Signup , Profile , userRefreshToken }= require("../controller/user");
 const { Middleware } = require("../middleware/index");
 const express = require("express");

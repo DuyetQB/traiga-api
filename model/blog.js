@@ -11,8 +11,6 @@ const BlogPost = new Schema({
   keyWords:Array,
   slug: String,
   imageUrl:String,
-  imageThumbnailUrl:String,
-
 },{ timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }});
 
 const BlogPostUser = mongoose.model("collection", BlogPost);

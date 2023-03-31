@@ -8,7 +8,6 @@ require('dotenv').config()
 const PORT = 3002
 const morgan = require('morgan');
 
-
 // mongoose.connect('mongodb://localhost/trai-ga',{
 //         useNewUrlParser: true,
 //         useUnifiedTopology: true

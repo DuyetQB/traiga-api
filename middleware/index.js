@@ -15,7 +15,8 @@ const Middleware = async (req,res,next) =>{
     } catch (error) {
         if(error) return res.status(401).json({
             status:"error",
-            statusMessage:"the user is not authentication"
+            statusMessage:"the user is not authentication",
+            error:error
         })
     }
 

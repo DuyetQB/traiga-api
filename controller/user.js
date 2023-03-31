@@ -94,7 +94,8 @@ const Profile = async (req, res) => {
 const userRefreshToken = async (req, res) => {
   try {
     const { token } = req.headers;
-    console.log("token:", token);
+    console.log("token:", typeof token);
+    // console.log("req.headers:", req.headers);
     if (token) {
       const response = jwt.verify(token, process.env.REFRESH_TOKEN_SECRET);
       console.log("responseresponse:", response);

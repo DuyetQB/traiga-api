@@ -36,7 +36,6 @@ const createProduct = async (req, res) => {
       keyWords,
     } = req.body;
     const handleSlug = handleSlugString(title);
-
     const datasCreate = new ModelBlog({
       author: author,
       title: title,
@@ -44,7 +43,7 @@ const createProduct = async (req, res) => {
       body: body,
       imageUrl: imageUrl,
       slug: handleSlug,
-      keyWords: keyWords,
+      keyWords: keyWords
     });
 
     datasCreate.save();
@@ -108,5 +107,5 @@ module.exports = {
   updateProduct,
   deleteProductById,
   deleteProductAll,
-  findProductByName,
+  findProductByName
 };
