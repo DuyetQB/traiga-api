@@ -7,15 +7,15 @@ const { Middleware } = require("../middleware/index");
 const express = require("express");
 const router = express.Router();
 
-router.get("/api/productAll/",Middleware, getAllProduct)
+router.get("/api/productAll/", getAllProduct)
 router.get("/api/product/:slug", getProductById)
-router.post("/api/createProduct", createProduct)
-router.delete("/api/deleteProductAll", deleteProductAll)
+router.post("/api/createProduct",Middleware, createProduct)
+router.delete("/api/deleteProductAll",Middleware, deleteProductAll)
 router.post("/api/login", Login)
 router.post("/api/signup", Signup)
-router.put("/api/updateProduct/", updateProduct)
-router.delete("/api/deleteProduct/:id", deleteProductById)
-router.get("/api/profile", Middleware, Profile)
+router.put("/api/updateProduct/",Middleware, updateProduct)
+router.delete("/api/deleteProduct/:id",Middleware, deleteProductById)
+router.get("/api/profile", Profile)
 router.post("/api/refresh-token", userRefreshToken)
 router.get("/api/search", findProductByName)
 
