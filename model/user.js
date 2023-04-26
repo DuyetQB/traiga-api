@@ -5,7 +5,7 @@ const ObjectId = Schema.ObjectId;
 const UserSchema = new Schema({
   avatarUrl: { type: String, default:null},
   role: { type: String, default: 'User'},
-  userId: { type: ObjectId,default:null,ref:'collection'},
+  userId: { type: ObjectId,default:null},
   action: { type: String, default: 'System'},
   email: {
     type: String,

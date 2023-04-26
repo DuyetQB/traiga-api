@@ -7,8 +7,8 @@ const { Middleware } = require("../middleware/index");
 const express = require("express");
 const router = express.Router();
 
-router.get("/api/productAll/", getAllProduct)
-router.get("/api/private-productAll/",Middleware, getAllProduct)
+router.get("/api/productAll", getAllProduct)
+router.get("/api/private-productAll",Middleware, getAllProduct)
 router.get("/api/product/:slug", getProductById)
 router.post("/api/createProduct",Middleware, createProduct)
 router.delete("/api/deleteProductAll",Middleware, deleteProductAll)
