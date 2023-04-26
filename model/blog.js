@@ -4,7 +4,7 @@ const ObjectId = Schema.ObjectId;
 
 const BlogPost = new Schema({
   id: ObjectId,
-  author: String,
+  author:Object,
   title: String,
   description:String,
   body: String,
