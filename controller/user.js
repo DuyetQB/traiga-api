@@ -91,6 +91,23 @@ const Profile = async (req, res) => {
   }
 };
 
+const UpDateProfile = async (req, res) => {
+  try {
+    const updateUser = await ModelUser.findByIdAndUpdate(req.params.id,{
+      ...req.body
+    })
+
+    return res.status(200).json({ data: updateUser, statusMessage: "ok" });
+  } catch (error) {
+    if (error.code === 11000) {
+      console.log("err:", error);
+      return res
+        .status(400)
+        .json({ data: [], statusMessage: "email is duplicate" });
+    }
+  }
+};
+
 const userRefreshToken = async (req, res) => {
   try {
     const { token } = req.headers;
@@ -122,5 +139,6 @@ module.exports = {
   Login,
   Signup,
   Profile,
+  UpDateProfile,
   userRefreshToken,
 };
