@@ -7,7 +7,12 @@ const router = require("./router/index.js");
 require('dotenv').config()
 const PORT = 3002
 const morgan = require('morgan');
-
+const apicache = require("apicache");
+//configure apicache 
+let cache = apicache.middleware
+  
+//caching all routes for 5 minutes
+app.use(cache('5 minutes'))
 // mongoose.connect('mongodb://localhost/trai-ga',{
 //         useNewUrlParser: true,
 //         useUnifiedTopology: true
@@ -44,6 +49,7 @@ mongoose.connect(dbUrl, { useNewUrlParser: true,useUnifiedTopology: true })
 
 app.use("/",router);
 
+ 
 app.listen(PORT,function(){
     console.log(`app is runing on port-${PORT} `);
 })
