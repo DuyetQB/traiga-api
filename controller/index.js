@@ -6,11 +6,10 @@ const getAllProduct = async (req, res) => {
   try {
     const perPage = 10;
     const page = Math.max(0, req.query.page);
-    const datasResponse = await ModelBlog.find({})
-      .limit(perPage)
-      .skip(perPage * page);
-
-    return res.status(200).json({ data: datasResponse, statusMessage: "ok" });
+    if(req.query.page){
+      return res.status(200).json({ data: await ModelBlog.find({}).limit(perPage).skip(perPage * page), statusMessage: "ok" });
+    }
+    return res.status(200).json({ data: await ModelBlog.find({}), statusMessage: "ok" });
   } catch (error) {
     console.log("err:", error);
   }
