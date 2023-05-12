@@ -9,9 +9,6 @@ const PORT = 3002
 const morgan = require('morgan');
 const ModelBlog = require("./model/blog.js");
 
-const apicache = require("apicache");
-//configure apicache 
-let cache = apicache.middleware
 // mongoose.connect('mongodb://localhost/trai-ga',{
 //         useNewUrlParser: true,
 //         useUnifiedTopology: true
@@ -47,7 +44,6 @@ mongoose.connect(dbUrl, { useNewUrlParser: true,useUnifiedTopology: true })
 
 
 app.use("/",router);
-app.use(cache('5 minutes'));
 app.get("/api/public-getAllProduct",async (req,res)=>{
     try {
         const perPage = 10;
