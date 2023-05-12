@@ -7,7 +7,6 @@ const router = require("./router/index.js");
 require('dotenv').config()
 const PORT = 3002
 const morgan = require('morgan');
-const ModelBlog = require("./model/blog.js");
 
 // mongoose.connect('mongodb://localhost/trai-ga',{
 //         useNewUrlParser: true,
@@ -44,21 +43,7 @@ mongoose.connect(dbUrl, { useNewUrlParser: true,useUnifiedTopology: true })
 
 
 app.use("/",router);
-app.get("/api/public-getAllProduct",async (req,res)=>{
-    try {
-        const perPage = 10;
-        const page = Math.max(0, req.query.page);
-        const datasResponse = await ModelBlog.find({})
-          .limit(perPage)
-          .skip(perPage * page);
-    
-        return res.status(200).json({ data: datasResponse, statusMessage: "ok" });
-      } catch (error) {
-        console.log("err:", error);
-      }
-})
-   //caching all routes for 5 minutes
- 
+
 app.listen(PORT,function(){
     console.log(`app is runing on port-${PORT} `);
 })
