@@ -103,7 +103,6 @@ const findProductByName = async (req, res) => {
 
 module.exports = {
   getAllProduct,
-  getPrivateAllProduct,
   getProductById,
   createProduct,
   updateProduct,
